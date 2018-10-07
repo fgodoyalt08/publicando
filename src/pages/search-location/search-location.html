@@ -1,0 +1,18 @@
+<!-- # -->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-input placeholder="Filtre por categoría" padding-left autofocus></ion-input>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <div class="list-no-border">
+    <!--nearby places-->
+    <ion-item *ngFor="let item of places | async" tappable (click)="searchBy(item)">
+      <ion-icon name="md-arrow-dropright" item-left color="primary"></ion-icon>
+      <span ion-text color="primary">{{ item.name }}</span>
+    </ion-item>
+  </div>
+</ion-content>

@@ -1,0 +1,69 @@
+<!-- -->
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <strong>Publicando</strong>
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button tappable (click)="relink()">
+      <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button tappable (click)="presentNotifications($event)">
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+      <button ion-button tappable (click)="goToAccount()">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <!--  -->
+  <ion-toolbar padding color="light">
+      <div *ngIf="(trips | async)?.length==0"><p ion-text no-margin class="text-white">No records found.</p></div>
+      <div *ngIf="(trips | async)?.length!=0"><p ion-text no-margin class="text-white"><strong>{{(trips | async)?.length}}</strong> results found!</p></div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="animated fadeIn common-bg">
+
+  <ion-card no-margin margin-bottom class="full-width" *ngIf="isDisabled">
+    <ion-item tappable (click)="choosePlace('from')" class="border-bottom">
+      <ion-icon name="search" color="primary" item-left></ion-icon>
+      <span>{{ search.name }}</span>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="md-calendar" color="primary" item-left></ion-icon>
+      <ion-datetime class="no-pl" displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" [(ngModel)]="search.date"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="md-key" color="primary" item-left></ion-icon>
+      <ion-input type="text" class="no-pl" placeholder="Palabra clave" [(ngModel)]="search.key"></ion-input>
+    </ion-item>
+    <button ion-button icon-start block margin-bottom color="primary" class="round" tappable (click)="doSearch()">
+      <ion-icon name="search"></ion-icon> Aceptar
+    </button>
+  </ion-card>
+
+  <!--list of trips-->
+  <div class="trip card" *ngFor="let feature of trips | async" tappable (click)="openDetails(feature.id)" margin-bottom>
+    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(' + feature.image + ')'}">
+      <div class="background-filter rlt">
+        <div class="align-bottom" padding-left padding-right>
+          <h6 class="pull-left text-white" ion-text>{{ feature.title }}</h6>
+          <!--h6 class="pull-right text-white" ion-text>{{ feature.price_adult | currency:'USD':true }}</h6-->
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="padding-sm primary-bg">
+      <ion-icon name="paper" class="text-white"></ion-icon>
+      <span ion-text class="text-white">{{ feature.excerpt }}</span>
+      <!--span class="pull-right" ion-text color="light"><strong>per adult</strong> (childs has <span ion-text  class="text-green bold">50% OFF</span>)</span-->
+    </div>
+  </div>
+
+
+</ion-content>

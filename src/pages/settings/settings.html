@@ -1,0 +1,37 @@
+<!-- -->
+<ion-header class="no-shadow">
+
+  <ion-navbar class="no-border">
+    <ion-title>
+      <ion-icon name="cog" class="text-primary"></ion-icon>
+      <span class="text-primary">Configuraciones</span>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="common-bg">
+  <!-- User settings-->
+  <ion-item-group>
+    <ion-item-divider color="secondary" class="bold">Configuraciones del usuario</ion-item-divider>
+    <ion-item>
+      <ion-label>Notificaciones?</ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+    </ion-item>
+  </ion-item-group>
+  <!-- App settings-->
+  <ion-item-group>
+    <ion-item-divider color="secondary" class="bold">Configuraciones de la Aplicación</ion-item-divider>
+    <ion-item>
+      <ion-label>Notificaciones Push?</ion-label>
+      <ion-toggle checked="true"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <span>Politicas de Privacidad</span>
+    </ion-item>
+  </ion-item-group>  
+
+  <!--sign out button-->
+  <button ion-button color="primary" full tappable (click)="logout()">Cerrar Sessión</button>
+
+</ion-content>

@@ -1,0 +1,114 @@
+<!-- -->
+<ion-header margin-bottom>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <strong>Detalle de la publicacion</strong>
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button tappable (click)="presentNotifications($event)">
+        <ion-icon name="notifications"></ion-icon>
+      </button>
+      <button ion-button tappable (click)="goToAccount()">
+        <ion-icon name="cog"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="common-bg" *ngFor="let trip of tripes | async">
+
+  <div class="trip card" tappable (click)="openDetails(trip.id)" margin-bottom>
+    <div class="background border-bottom" [ngStyle]="{'background-image': 'url(' + trip.image + ')'}">
+      <div class="background-filter rlt">
+        <div class="align-bottom" padding-left padding-right>
+          <h6 class="pull-left text-white" ion-text>{{ trip.title }}</h6>
+          <!--h6 class="pull-right text-white" ion-text>{{ trip.price_adult | currency:'USD':true }}</h6-->
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="padding-sm primary-bg">
+      <ion-icon name="paper" class="text-white"></ion-icon>
+      <span ion-text class="text-white">{{ trip.excerpt }}</span>
+      <!--span class="pull-right" ion-text color="light"><strong>per adult</strong> (childs has <span ion-text  class="text-green bold">50% OFF</span>)</span-->
+    </div>
+  </div>
+  
+  <!--services-->
+  <ion-grid class="border-bottom dark-bg">
+    <ion-row>
+      <ion-col text-center>
+        <div class="text-sm">
+          <div>
+            <ion-icon name="checkbox-outline" margin-left class="text-white"></ion-icon>
+            <span ion-text color="light">{{trip.category}}</span>
+            <ion-icon name="list-box" margin-left class="text-white"></ion-icon>
+            <span ion-text color="light">VOUCHER</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--slides-->
+  <ion-slides class="to-top" pager>
+    <ion-slide *ngFor="let image of trip.imagenes | keys">
+      <img [src]="'https://clasificados.integralwebhost.com/storage/' + image" alt="">
+    </ion-slide>
+  </ion-slides>
+
+
+  <ion-grid class="border-bottom dark-bg">
+    <ion-row>
+      <ion-col text-center>
+        <div class="text-sm">
+          <div>
+            <button ion-button tappable (click)="relink(trip.category)">
+            <ion-icon name="ios-contact"></ion-icon>
+              Contacto
+            </button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-card no-margin margin-bottom class="full-width" *ngIf="!isDisabled">
+    <ion-item>
+      <button *ngIf="trip.phone != ''" ion-button color="secondary" tappable (click)="whatsapp(trip.phone)"><ion-icon name="logo-whatsapp" class="text-white"></ion-icon>  
+        <span ion-text margin-left> {{trip.phone}} </span>
+      </button>
+      <button *ngIf="trip.phone != ''" ion-button color="secondary" tappable (click)="callToNumber(trip.phone)"><ion-icon name="call" class="text-white"></ion-icon>  
+        <span ion-text margin-left> {{trip.phone}} </span>
+      </button>
+    </ion-item>
+    <ion-item>
+      <button *ngIf="trip.email != ''" ion-button color="secondary" tappable (click)="sendMail(trip.email)"><ion-icon name="mail" class="text-white"></ion-icon>  
+        <span ion-text margin-left> {{trip.email}} </span>
+      </button>
+      <button ion-button color="secondary" tappable (click)="shareTwitter()"><ion-icon name="logo-twitter" class="text-white"></ion-icon>
+        <span ion-text margin-left> {{trip.title}} </span>
+      </button>
+    </ion-item>
+    <ion-item>
+      <button *ngIf="trip.website != ''" ion-button color="secondary" tappable (click)="verWebsite(trip.website)"><ion-icon name="desktop" class="text-white"></ion-icon>
+        <span ion-text margin-left> {{trip.website}} </span>
+      </button>
+    </ion-item>
+  </ion-card>
+
+  <!--description-->
+  <div class="border-bottom" padding>
+    <span ion-text color="primary" class="bold">DESCRIPTION</span>
+    <div [innerHTML]="trip.body"></div>
+  </div>
+
+</ion-content>
+
+<div class="border-bottom map" padding>
+  <div id="map_canvas"></div>
+</div>
